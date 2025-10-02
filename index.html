@@ -1,1 +1,198 @@
+<!-- index.html -->
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Apple Store — Loja</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="logo"></div>
+    <div>
+      <h1>Apple Boutique</h1>
+      <div class="meta">Produtos Apple recondicionados e novos — Pagamento seguro</div>
+    </div>
+  </div>
+  <nav class="nav">
+    <a href="#iphones">iPhones</a>
+    <a href="#ipads">iPads</a>
+    <a href="#apple-watch">Apple Watch</a>
+    <a href="#macbooks">MacBooks</a>
+  </nav>
+</header>
 
+<section class="hero">
+  <div class="intro">
+    <h2>Os melhores aparelhos Apple. Preços justos. Entrega rápida.</h2>
+    <p>Selecione o produto para ver fotos em diferentes ângulos e finalizar a compra.</p>
+    <div class="buttons">
+      <a class="btn" href="#iphones">Ver iPhones</a>
+      <a class="btn secondary" href="#macbooks">Ver MacBooks</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <img src="https://source.unsplash.com/800x600/?apple,iphone" alt="hero">
+  </div>
+</section>
+
+<main>
+  <section id="iphones">
+    <h3>iPhones (a partir do 13 Pro Max)</h3>
+    <div class="grid" id="products-grid"></div>
+  </section>
+
+  <section id="ipads">
+    <h3>iPads</h3>
+    <div class="grid" id="ipads-grid"></div>
+  </section>
+
+  <section id="apple-watch">
+    <h3>Apple Watch</h3>
+    <div class="grid" id="watch-grid"></div>
+  </section>
+
+  <section id="macbooks">
+    <h3>MacBooks (4 modelos)</h3>
+    <div class="grid" id="mac-grid"></div>
+  </section>
+</main>
+
+<div class="modal-bg" id="modal">
+  <div class="modal" role="dialog">
+    <div class="modal-header">
+      <div>
+        <h3 id="modal-title">Produto</h3>
+        <div id="modal-sub" class="meta">Detalhes do produto</div>
+      </div>
+      <div>
+        <button class="btn" id="modal-buy">Comprar</button>
+        <button class="btn secondary" id="modal-close">Fechar</button>
+      </div>
+    </div>
+    <div class="images" id="modal-images">
+      <img id="modal-main" src="" alt="produto">
+    </div>
+    <div class="thumbs" id="modal-thumbs"></div>
+  </div>
+</div>
+
+<footer>
+  © 2025 Apple Boutique — Produtos listados para venda. Botões de compra levam a links de checkout configuráveis.
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
+
+
+/* styles.css */
+:root{--bg:#0b1020;--card:#0f1724;--accent:#0ea5a3;--muted:#94a3b8;--glass:rgba(255,255,255,0.03)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,Segoe UI,Helvetica,Arial,system-ui;background:var(--bg);color:#e6eef6;overflow-x:hidden}
+header{padding:20px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:14px}
+.logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#fff,#cfeff0);display:flex;align-items:center;justify-content:center;color:#052;font-weight:700}
+h1{margin:0;font-size:20px}
+.nav{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:10px;transition:0.2s}
+.nav a:hover{background:var(--glass);color:#fff}
+.hero{padding:30px 24px;display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.hero .intro{flex:1;min-width:280px}
+.hero h2{font-size:32px;margin-bottom:8px}
+.hero p{color:var(--muted);margin-bottom:16px}
+.hero .buttons{display:flex;gap:10px;flex-wrap:wrap}
+.hero-image{width:340px;border-radius:14px;overflow:hidden;box-shadow:0 10px 40px rgba(4,12,28,0.6)}
+.hero-image img{width:100%;height:280px;object-fit:cover;display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;padding:20px 24px}
+.card{background:var(--card);padding:14px;border-radius:14px;box-shadow:0 6px 20px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.02);display:flex;flex-direction:column;justify-content:space-between}
+.card img{width:100%;height:180px;object-fit:cover;border-radius:10px}
+.title{font-weight:600;margin:10px 0 6px;font-size:16px}
+.price{color:var(--accent);font-weight:700}
+.meta{color:var(--muted);font-size:13px;margin-bottom:6px}
+.actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.btn{background:linear-gradient(90deg,var(--accent),#06b6d4);border:none;color:#042;padding:10px 12px;border-radius:10px;cursor:pointer;font-weight:700;transition:0.2s}
+.btn:hover{opacity:0.85}
+.btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+.btn.secondary:hover{color:#fff;border-color:var(--accent)}
+footer{padding:20px;color:var(--muted);text-align:center;border-top:1px solid rgba(255,255,255,0.05)}
+.modal-bg{position:fixed;inset:0;background:rgba(2,6,23,0.85);display:none;align-items:center;justify-content:center;z-index:1000;overflow-y:auto;padding:20px}
+.modal{width:100%;max-width:1000px;background:var(--card);border-radius:12px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,0.7)}
+.modal-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.modal .images{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+.modal .images img{width:100%;max-width:600px;height:auto;object-fit:contain;border-radius:10px;background:var(--glass)}
+.thumbs{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;justify-content:center}
+.thumbs img{width:86px;height:60px;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid transparent;transition:0.2s}
+.thumbs img.active{border-color:var(--accent)}
+@media(max-width:700px){.hero h2{font-size:24px}.hero-image img{height:200px}.card img{height:140px}.thumbs img{width:60px;height:40px}}
+
+
+/* app.js */
+const products = [
+  // iPhones
+  {id:'iphone1',title:'iPhone 13 Pro Max',desc:'128GB • Cinza',price:'R$5.999',category:'iphone',images:['https://source.unsplash.com/400x400/?iphone,13,front','https://source.unsplash.com/400x400/?iphone,13,side','https://source.unsplash.com/400x400/?iphone,13,back'],buy:'#'},
+  {id:'iphone2',title:'iPhone 14 Pro',desc:'256GB • Dourado',price:'R$7.499',category:'iphone',images:['https://source.unsplash.com/400x400/?iphone,14,front','https://source.unsplash.com/400x400/?iphone,14,side','https://source.unsplash.com/400x400/?iphone,14,back'],buy:'#'},
+  {id:'iphone3',title:'iPhone 14 Pro Max',desc:'512GB • Prata',price:'R$8.199',category:'iphone',images:['https://source.unsplash.com/400x400/?iphone,14pro,max,front','https://source.unsplash.com/400x400/?iphone,14pro,max,side','https://source.unsplash.com/400x400/?iphone,14pro,max,back'],buy:'#'},
+
+  // iPads
+  {id:'ipad1',title:'iPad Pro 12.9',desc:'128GB • Cinza',price:'R$7.999',category:'ipad',images:['https://source.unsplash.com/400x400/?ipad,pro,front','https://source.unsplash.com/400x400/?ipad,pro,side','https://source.unsplash.com/400x400/?ipad,pro,back'],buy:'#'},
+
+  // Apple Watch
+  {id:'watch1',title:'Apple Watch Series 7',desc:'Alumínio • 41mm',price:'R$2.799',category:'watch',images:['https://source.unsplash.com/400x400/?applewatch,series7,front','https://source.unsplash.com/400x400/?applewatch,series7,side','https://source.unsplash.com/400x400/?applewatch,series7,back'],buy:'#'},
+  // ... adicione até 9 modelos
+
+  // MacBooks
+  {id:'mac1',title:'MacBook Air M1',desc:'256GB • Prata',price:'R$9.499',category:'mac',images:['https://source.unsplash.com/400x400/?macbook,air,m1,front','https://source.unsplash.com/400x400/?macbook,air,m1,side','https://source.unsplash.com/400x400/?macbook,air,m1,back'],buy:'#'},
+  {id:'mac2',title:'MacBook Pro 14"',desc:'512GB • Cinza',price:'R$14.999',category:'mac',images:['https://source.unsplash.com/400x400/?macbook,pro,14,front','https://source.unsplash.com/400x400/?macbook,pro,14,side','https://source.unsplash.com/400x400/?macbook,pro,14,back'],buy:'#'}
+  // adicione 2 modelos restantes
+];
+
+function createCard(p){
+  const el = document.createElement('div'); el.className='card';
+  el.innerHTML = `<img src="${p.images[0]}" alt="${p.title}"><div class="title">${p.title}</div><div class="meta">${p.desc}</div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><div class="price">${p.price}</div><div class="actions"><button class="btn" data-id="${p.id}">Visualizar</button><a class="btn secondary" href="${p.buy}">Comprar</a></div></div>`;
+  return el;
+}
+
+const grid = document.getElementById('products-grid');
+const ipadsGrid = document.getElementById('ipads-grid');
+const watchGrid = document.getElementById('watch-grid');
+const macGrid = document.getElementById('mac-grid');
+products.forEach(p=>{
+  const node = createCard(p);
+  if(p.category==='iphone') grid.appendChild(node);
+  if(p.category==='ipad') ipadsGrid.appendChild(node);
+  if(p.category==='watch') watchGrid.appendChild(node);
+  if(p.category==='mac') macGrid.appendChild(node);
+});
+
+// Modal
+const modalBg = document.getElementById('modal');
+const modalTitle = document.getElementById('modal-title');
+const modalSub = document.getElementById('modal-sub');
+const modalMain = document.getElementById('modal-main');
+const modalThumbs = document.getElementById('modal-thumbs');
+const modalBuy = document.getElementById('modal-buy');
+document.addEventListener('click', (e)=>{
+  const btn = e.target.closest('button[data-id]');
+  if(btn){ openProduct(btn.dataset.id); }
+});
+document.getElementById('modal-close').addEventListener('click', ()=>{modalBg.style.display='none'});
+modalBg.addEventListener('click', (e)=>{if(e.target===modalBg) modalBg.style.display='none'});
+
+function openProduct(id){
+  const p = products.find(x=>x.id===id);
+  if(!p) return;
+  modalTitle.textContent = p.title;
+  modalSub.textContent = `${p.desc} • ${p.price}`;
+  modalMain.src = p.images[0];
+  modalThumbs.innerHTML='';
+  p.images.forEach((src,i)=>{
+    const t = document.createElement('img'); t.src=src; if(i===0) t.classList.add('active');
+    t.addEventListener('click', ()=>{ modalMain.src=src; document.querySelectorAll('#modal-thumbs img').forEach(im=>im.classList.remove('active')); t.classList.add('active'); });
+    modalThumbs.appendChild(t);
+  });
+  modalBuy.onclick=()=>{window.location.href=p.buy};
+  modalBg.style.display='flex';
+}
