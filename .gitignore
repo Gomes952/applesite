@@ -1,22 +1,317 @@
-### AL ###
-#Template for AL projects for Dynamics 365 Business Central
-#launch.json folder
-.vscode/
-#Cache folder
-.alcache/
-#Symbols folder
-.alpackages/
-#Snapshots folder
-.snapshots/
-#Testing Output folder
-.output/
-#Extension App-file
-*.app
-#Rapid Application Development File
-rad.json
-#Translation Base-file
-*.g.xlf
-#License-file
-*.flf
-#Test results file
-TestResults.xml
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Apple Store — Loja</title>
+  <style>
+    :root{--bg:#0b1020;--card:#0f1724;--accent:#0ea5a3;--muted:#94a3b8;--glass:rgba(255,255,255,0.03)}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,Segoe UI,Helvetica,Arial,system-ui;background:linear-gradient(180deg,#061025 0%, #071428 60%);color:#e6eef6}
+    header{padding:28px 20px;display:flex;justify-content:space-between;align-items:center}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#fff,#cfeff0);display:flex;align-items:center;justify-content:center;color:#052; font-weight:700}
+    h1{margin:0;font-size:20px}
+    .nav{display:flex;gap:12px;align-items:center}
+    .nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:10px}
+    .hero{padding:30px 20px;display:flex;gap:24px;align-items:center}
+    .hero .intro{flex:1}
+    .hero h2{font-size:32px;margin:0 0 8px}
+    .hero p{color:var(--muted);margin:0 0 16px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;padding:20px}
+    .card{background:var(--card);padding:14px;border-radius:14px;box-shadow:0 6px 20px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.02)}
+    .card img{width:100%;height:160px;object-fit:cover;border-radius:10px}
+    .title{font-weight:600;margin:10px 0 6px}
+    .price{color:var(--accent);font-weight:700}
+    .meta{color:var(--muted);font-size:13px}
+    .actions{display:flex;gap:8px;margin-top:12px}
+    .btn{background:linear-gradient(90deg,var(--accent),#06b6d4);border:none;color:#042; padding:10px 12px;border-radius:10px;cursor:pointer;font-weight:700}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    footer{padding:20px;color:var(--muted);text-align:center}
+    /* modal */
+    .modal-bg{position:fixed;inset:0;background:rgba(2,6,23,0.7);display:none;align-items:center;justify-content:center;padding:20px}
+    .modal{width:100%;max-width:1000px;background:linear-gradient(180deg,#071428,#041022);border-radius:12px;padding:18px}
+    .modal .images{display:flex;gap:10px}
+    .modal .images img{width:100%;height:420px;object-fit:contain;border-radius:10px;background:var(--glass)}
+    .thumbs{display:flex;gap:8px;margin-top:10px}
+    .thumbs img{width:86px;height:60px;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid transparent}
+    .thumbs img.active{border-color:var(--accent)}
+    @media(max-width:700px){.modal .images img{height:280px}.hero{flex-direction:column;align-items:flex-start}.hero h2{font-size:24px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo"></div>
+      <div>
+        <h1>Apple Boutique</h1>
+        <div class="meta">Produtos Apple recondicionados e novos — Pagamento seguro</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="#iphones">iPhones</a>
+      <a href="#ipads">iPads</a>
+      <a href="#apple-watch">Apple Watch</a>
+      <a href="#macbooks">MacBooks</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="intro">
+      <h2>Os melhores aparelhos Apple. Preços justos. Entrega rápida.</h2>
+      <p>Selecione o produto para ver fotos em diferentes ângulos e finalizar a compra. (Área de contato removida conforme solicitado.)</p>
+      <div style="display:flex;gap:10px">
+        <a class="btn" href="#iphones">Ver iPhones</a>
+        <a class="btn secondary" href="#macbooks">Ver MacBooks</a>
+      </div>
+    </div>
+    <div style="width:340px;border-radius:14px;overflow:hidden;box-shadow:0 10px 40px rgba(4,12,28,0.6);">
+      <img src="https://source.unsplash.com/800x600/?apple,iphone" alt="hero" style="width:100%;height:280px;object-fit:cover;display:block">
+    </div>
+  </section>
+
+  <main>
+    <section id="iphones">
+      <h3 style="padding:0 20px;margin:8px 0 0">iPhones (a partir do 13 Pro Max)</h3>
+      <div class="grid" id="products-grid"></div>
+    </section>
+
+    <section id="ipads">
+      <h3 style="padding:0 20px;margin:18px 0 0">iPads</h3>
+      <div class="grid" id="ipads-grid"></div>
+    </section>
+
+    <section id="apple-watch">
+      <h3 style="padding:0 20px;margin:18px 0 0">Apple Watch</h3>
+      <div class="grid" id="watch-grid"></div>
+    </section>
+
+    <section id="macbooks">
+      <h3 style="padding:0 20px;margin:18px 0 0">MacBooks (4 modelos)</h3>
+      <div class="grid" id="mac-grid"></div>
+    </section>
+  </main>
+
+  <div class="modal-bg" id="modal">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <h3 id="modal-title">Produto</h3>
+          <div id="modal-sub" class="meta">Detalhes do produto</div>
+        </div>
+        <div><button class="btn" id="modal-buy">Comprar</button>
+        <button class="btn secondary" id="modal-close" style="margin-left:8px">Fechar</button></div>
+      </div>
+      <div class="images" style="margin-top:12px">
+        <img id="modal-main" src="" alt="produto">
+      </div>
+      <div class="thumbs" id="modal-thumbs"></div>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 Apple Boutique — Produtos listados para venda. Botões de compra levam a links de checkout configuráveis.
+  </footer>
+
+  <script>
+    // Product data (you can replace buyLink with your real checkout links)
+    const products = [
+      // iPhones (a partir do 13 Pro Max) — imagens reais via Unsplash queries
+      {id:'iphone-13-pro-max',title:'iPhone 13 Pro Max',price:'R$ 3.499',category:'iphone',images:[
+        'https://source.unsplash.com/900x700/?iphone,13,front',
+        'https://source.unsplash.com/900x700/?iphone,13,back',
+        'https://source.unsplash.com/900x700/?iphone,13,angle'
+      ],desc:'iPhone 13 Pro Max — 128GB / 256GB / 512GB — Estado: Novo',buy:'#'},
+      {id:'iphone-14-pro',title:'iPhone 14 Pro',price:'R$ 4.199',category:'iphone',images:[
+        'https://source.unsplash.com/900x700/?iphone,14,front',
+        'https://source.unsplash.com/900x700/?iphone,14,back',
+        'https://source.unsplash.com/900x700/?iphone,14,angle'
+      ],desc:'iPhone 14 Pro — 128GB / 256GB — Estado: Novo',buy:'#'},
+      {id:'iphone-14-pro-max',title:'iPhone 14 Pro Max',price:'R$ 4.699',category:'iphone',images:[
+        'https://source.unsplash.com/900x700/?iphone,14+pro+max,front',
+        'https://source.unsplash.com/900x700/?iphone,14+pro+max,back',
+        'https://source.unsplash.com/900x700/?iphone,14+pro+max,angle'
+      ],desc:'iPhone 14 Pro Max — Várias capacidades',buy:'#'},
+      {id:'iphone-15',title:'iPhone 15',price:'R$ 4.199',category:'iphone',images:[
+        'https://source.unsplash.com/900x700/?iphone,15,front',
+        'https://source.unsplash.com/900x700/?iphone,15,back',
+        'https://source.unsplash.com/900x700/?iphone,15,angle'
+      ],desc:'iPhone 15 — Design atualizado, USB‑C',buy:'#'},
+      {id:'iphone-15-pro',title:'iPhone 15 Pro',price:'R$ 6.199',category:'iphone',images:[
+        'https://source.unsplash.com/900x700/?iphone,15+pro,front',
+        'https://source.unsplash.com/900x700/?iphone,15+pro,back',
+        'https://source.unsplash.com/900x700/?iphone,15+pro,angle'
+      ],desc:'iPhone 15 Pro — Performance Pro',buy:'#'},
+      {id:'iphone-15-pro-max',title:'iPhone 15 Pro Max',price:'R$ 7.399',category:'iphone',images:[
+        'https://source.unsplash.com/900x700/?iphone,15+pro+max,front',
+        'https://source.unsplash.com/900x700/?iphone,15+pro+max,back',
+        'https://source.unsplash.com/900x700/?iphone,15+pro+max,angle'
+      ],desc:'iPhone 15 Pro Max — Tela maior e bateria extensa',buy:'#'},
+      {id:'iphone-16',title:'iPhone 16',price:'R$ 4.899',category:'iphone',images:[
+        'https://source.unsplash.com/900x700/?iphone,16,front',
+        'https://source.unsplash.com/900x700/?iphone,16,back',
+        'https://source.unsplash.com/900x700/?iphone,16,angle'
+      ],desc:'iPhone 16 — Geração mais recente',buy:'#'},
+      {id:'iphone-16-pro',title:'iPhone 16 Pro',price:'R$ 6.999',category:'iphone',images:[
+        'https://source.unsplash.com/900x700/?iphone,16+pro,front',
+        'https://source.unsplash.com/900x700/?iphone,16+pro,back',
+        'https://source.unsplash.com/900x700/?iphone,16+pro,angle'
+      ],desc:'iPhone 16 Pro — Potência máxima',buy:'#'},
+      {id:'iphone-17-pro',title:'iPhone 17 Pro',price:'R$ 8.199',category:'iphone',images:[
+        'https://source.unsplash.com/900x700/?iphone,17,front',
+        'https://source.unsplash.com/900x700/?iphone,17,back',
+        'https://source.unsplash.com/900x700/?iphone,17,angle'
+      ],desc:'iPhone 17 Pro — Última tecnologia',buy:'#'},
+
+      // iPads (example models)
+      {id:'ipad-air',title:'iPad Air',price:'R$ 3.199',category:'ipad',images:[
+        'https://source.unsplash.com/900x700/?ipad,air,front',
+        'https://source.unsplash.com/900x700/?ipad,air,angle',
+        'https://source.unsplash.com/900x700/?ipad,air,back'
+      ],desc:'iPad Air — Tela Liquid Retina',buy:'#'},
+      {id:'ipad-pro',title:'iPad Pro 11"',price:'R$ 5.499',category:'ipad',images:[
+        'https://source.unsplash.com/900x700/?ipad,pro,front',
+        'https://source.unsplash.com/900x700/?ipad,pro,back',
+        'https://source.unsplash.com/900x700/?ipad,pro,angle'
+      ],desc:'iPad Pro — Ideal para criação',buy:'#'},
+
+      // Apple Watch — 9 modelos (variants)
+      {id:'watch-s9-41-gps',title:'Apple Watch Series 9 41mm GPS',price:'R$ 2.099',category:'watch',images:[
+        'https://source.unsplash.com/900x700/?apple-watch,series9,41',
+        'https://source.unsplash.com/900x700/?apple-watch,series9,front',
+        'https://source.unsplash.com/900x700/?apple-watch,series9,angle'
+      ],desc:'Series 9 41mm GPS',buy:'#'},
+      {id:'watch-s9-41-cell',title:'Apple Watch Series 9 41mm Cellular',price:'R$ 2.699',category:'watch',images:[
+        'https://source.unsplash.com/900x700/?apple-watch,cellular',
+        'https://source.unsplash.com/900x700/?apple-watch,cell',
+        'https://source.unsplash.com/900x700/?apple-watch,band'
+      ],desc:'Series 9 41mm Cellular',buy:'#'},
+      {id:'watch-s9-45-gps',title:'Apple Watch Series 9 45mm GPS',price:'R$ 2.299',category:'watch',images:[
+        'https://source.unsplash.com/900x700/?apple-watch,45',
+        'https://source.unsplash.com/900x700/?apple-watch,large',
+        'https://source.unsplash.com/900x700/?apple-watch,straps'
+      ],desc:'Series 9 45mm GPS',buy:'#'},
+      {id:'watch-ultra-2',title:'Apple Watch Ultra 2',price:'R$ 4.999',category:'watch',images:[
+        'https://source.unsplash.com/900x700/?apple-watch,ultra',
+        'https://source.unsplash.com/900x700/?apple-watch,ultra,back',
+        'https://source.unsplash.com/900x700/?apple-watch,ultra,front'
+      ],desc:'Apple Watch Ultra 2 — Aventureiro',buy:'#'},
+      {id:'watch-se',title:'Apple Watch SE',price:'R$ 1.599',category:'watch',images:[
+        'https://source.unsplash.com/900x700/?apple-watch,se',
+        'https://source.unsplash.com/900x700/?apple-watch,se,band',
+        'https://source.unsplash.com/900x700/?apple-watch,se,angle'
+      ],desc:'Apple Watch SE — Custo-benefício',buy:'#'},
+      {id:'watch-s9-41-special',title:'Series 9 - Edição Especial',price:'R$ 2.499',category:'watch',images:[
+        'https://source.unsplash.com/900x700/?apple-watch,special',
+        'https://source.unsplash.com/900x700/?apple-watch,luxury',
+        'https://source.unsplash.com/900x700/?apple-watch,edition'
+      ],desc:'Edição especial Series 9',buy:'#'},
+      {id:'watch-s9-45-cell',title:'Series 9 45mm Cellular',price:'R$ 2.899',category:'watch',images:[
+        'https://source.unsplash.com/900x700/?apple-watch,cellular,45',
+        'https://source.unsplash.com/900x700/?apple-watch,45,band',
+        'https://source.unsplash.com/900x700/?apple-watch,45,angle'
+      ],desc:'Series 9 45mm Cellular',buy:'#'},
+      {id:'watch-s8-41',title:'Series 8 41mm',price:'R$ 1.899',category:'watch',images:[
+        'https://source.unsplash.com/900x700/?apple-watch,series8',
+        'https://source.unsplash.com/900x700/?apple-watch,series8,band',
+        'https://source.unsplash.com/900x700/?apple-watch,series8,angle'
+      ],desc:'Apple Watch Series 8',buy:'#'},
+      {id:'watch-s7-41',title:'Series 7 41mm',price:'R$ 1.499',category:'watch',images:[
+        'https://source.unsplash.com/900x700/?apple-watch,series7',
+        'https://source.unsplash.com/900x700/?apple-watch,series7,band',
+        'https://source.unsplash.com/900x700/?apple-watch,series7,angle'
+      ],desc:'Apple Watch Series 7',buy:'#'},
+
+      // MacBooks (4 models)
+      {id:'mac-air-m1',title:'MacBook Air (M1)',price:'R$ 4.199',category:'mac',images:[
+        'https://source.unsplash.com/900x700/?macbook,air,m1,front',
+        'https://source.unsplash.com/900x700/?macbook,air,m1,side',
+        'https://source.unsplash.com/900x700/?macbook,air,m1,angle'
+      ],desc:'MacBook Air com chip M1 — Leve e potente',buy:'#'},
+      {id:'mac-air-m2',title:'MacBook Air (M2)',price:'R$ 6.199',category:'mac',images:[
+        'https://source.unsplash.com/900x700/?macbook,air,m2,front',
+        'https://source.unsplash.com/900x700/?macbook,air,m2,back',
+        'https://source.unsplash.com/900x700/?macbook,air,m2,angle'
+      ],desc:'MacBook Air com chip M2 — Desempenho aprimorado',buy:'#'},
+      {id:'mac-pro-14',title:'MacBook Pro 14" (M3/M2 Pro)',price:'R$ 12.499',category:'mac',images:[
+        'https://source.unsplash.com/900x700/?macbook,pro,14',
+        'https://source.unsplash.com/900x700/?macbook,pro,14,angle',
+        'https://source.unsplash.com/900x700/?macbook,pro,14,side'
+      ],desc:'MacBook Pro 14" — Para profissionais',buy:'#'},
+      {id:'mac-pro-16',title:'MacBook Pro 16" (M3/M2 Max)',price:'R$ 16.999',category:'mac',images:[
+        'https://source.unsplash.com/900x700/?macbook,pro,16',
+        'https://source.unsplash.com/900x700/?macbook,pro,16,angle',
+        'https://source.unsplash.com/900x700/?macbook,pro,16,side'
+      ],desc:'MacBook Pro 16" — Máxima performance',buy:'#'}
+
+    ];
+
+    // Render product cards
+    const grid = document.getElementById('products-grid');
+    const ipadsGrid = document.getElementById('ipads-grid');
+    const watchGrid = document.getElementById('watch-grid');
+    const macGrid = document.getElementById('mac-grid');
+
+    function createCard(p){
+      const el = document.createElement('div'); el.className='card';
+      el.innerHTML = `
+        <img src="${p.images[0]}" alt="${p.title}">
+        <div class="title">${p.title}</div>
+        <div class="meta">${p.desc}</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+          <div class="price">${p.price}</div>
+          <div class="actions">
+            <button class="btn" data-id="${p.id}">Visualizar</button>
+            <a class="btn secondary" href="${p.buy}">Comprar</a>
+          </div>
+        </div>
+      `;
+      return el;
+    }
+
+    products.forEach(p=>{
+      const node = createCard(p);
+      if(p.category==='iphone') grid.appendChild(node);
+      if(p.category==='ipad') ipadsGrid.appendChild(node);
+      if(p.category==='watch') watchGrid.appendChild(node);
+      if(p.category==='mac') macGrid.appendChild(node);
+    });
+
+    // Modal behavior
+    const modalBg = document.getElementById('modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalSub = document.getElementById('modal-sub');
+    const modalMain = document.getElementById('modal-main');
+    const modalThumbs = document.getElementById('modal-thumbs');
+    const modalBuy = document.getElementById('modal-buy');
+
+    document.addEventListener('click', (e)=>{
+      const btn = e.target.closest('button[data-id]');
+      if(btn){
+        const id = btn.dataset.id;
+        openProduct(id);
+      }
+    });
+
+    document.getElementById('modal-close').addEventListener('click', ()=>{modalBg.style.display='none'});
+    modalBg.addEventListener('click', (e)=>{ if(e.target===modalBg) modalBg.style.display='none' });
+
+    function openProduct(id){
+      const p = products.find(x=>x.id===id);
+      if(!p) return;
+      modalTitle.textContent = p.title;
+      modalSub.textContent = p.desc + ' • ' + p.price;
+      modalMain.src = p.images[0];
+      modalThumbs.innerHTML = '';
+      p.images.forEach((src,i)=>{
+        const t = document.createElement('img'); t.src=src; if(i===0) t.classList.add('active');
+        t.addEventListener('click', ()=>{ modalMain.src = src; document.querySelectorAll('#modal-thumbs img').forEach(im=>im.classList.remove('active')); t.classList.add('active'); });
+        modalThumbs.appendChild(t);
+      });
+      modalBuy.onclick = ()=>{ window.location.href = p.buy; };
+      modalBg.style.display = 'flex';
+    }
+
+  </script>
+</body>
+</html>
